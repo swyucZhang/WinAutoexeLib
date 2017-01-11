@@ -1,5 +1,5 @@
 import sys
-
+#main.py
 
 sys.path.append("C:\\Program Files\\Anaconda3\\Lib\\site-packages")
 from condition import *
