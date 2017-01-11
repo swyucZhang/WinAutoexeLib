@@ -1,8 +1,8 @@
 from PIL import ImageGrab
 
 class condition():
-    def __init__(self,funScc,funFail,expr):
-        self.fun1=funScc
+    def __init__(self,funSccd,funFail,expr):
+        self.fun1=funSccd
         self.fun2=funFail
         self.expr=expr
     def execute(self):
