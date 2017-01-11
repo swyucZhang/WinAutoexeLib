@@ -1,5 +1,6 @@
 from PIL import ImageGrab
-
+from PIL import Image
+from method import *
 class condition():
     def __init__(self,funSccd,funFail,expr):
         self.fun1=funSccd
@@ -36,8 +37,27 @@ class dotCmp(expr):
             return True
         else:
             return False
-       
-            
+class imgCmp(expr):
+    def __init__(self,imgPos,imgFile,strict,method=None):
+        super().__init__()
+        self.imgPos=imgPos
+        self.imgFile=imgFile
+        self.strict=strict
+        self.method=method
+    def grab(self):
+        im1 = ImageGrab.grab((self.imgPos[0][0],self.imgPos[0][1],self.imgPos[1][0],self.imgPos[1][1]))
+        #print (im.size)
+        im2 = Image.open(self.imgFile)
+        return im1,im2
+    def boolean(self):
+        im1,im2=self.grab()
+                
+        if self.method is None:
+            self.method=histgram(im1,im2)
+        if self.method.value()<= self.strict:
+            return True
+        else:
+            return False
             
         
         
