@@ -33,7 +33,7 @@ class dotCmp(expr):
     def boolean(self):
         red, green, blue=self.grab()
         red, green, blue=self.color[0]-red,self.color[1]-green,self.color[2]-blue
-        if red**2+green**2+blue**2<=self.strict:
+        if (red**2+green**2+blue**2)/256**2<=self.strict:
             return True
         else:
             return False
@@ -53,7 +53,9 @@ class imgCmp(expr):
         im1,im2=self.grab()
                 
         if self.method is None:
-            self.method=histgram(im1,im2)
+            self.method=histgram()
+        self.method.im1=im1
+        self.method.im2=im2
         if self.method.value()<= self.strict:
             return True
         else:

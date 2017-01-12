@@ -12,31 +12,30 @@ from PIL import ImageOps
 #author MashiMaroLjc
 #version 2016-2-16
 class method ():
-        def __init__(self,im1,im2):
-                self.im1=im1
-                self.im2=im2
+        def __init__(self):
+                pass
         def value(self):
                 pass
 class histgram(method):
-        def __init__(self,im1,im2,resize=(256,256),split=True,part_size=(64,64)):
-                super().__init__(im1,im2)
+        def __init__(self,resize=(256,256),split=False,part_size=(64,64)):
+                super().__init__()
                 self.size=resize
                 self.split=split
                 self.part_size=part_size
         def value(self):
-                if self.split is True:
+                if self.split is False:
                         return self.classfiy_histogram(self.im1,self.im2,self.size)
                 else:
-                        return classfiy_histogram_with_split(self.im1,self.im2,self.size,self.part_size)
+                        return self.classfiy_histogram_with_split(self.im1,self.im2,self.size,self.part_size)
 #This module can classfiy the image by Average Hash Method with spilt the image to 16 pieces.
 #Then calculate every piece ,consider all data and return the result
 #
 #author MashiMaroLjc
 #version 2016-2-17
 
-        def calculate(image1,image2):
-                g = image1.histgram()
-                s = image2.histgram()
+        def calculate(self,image1,image2):
+                g = image1.histogram()
+                s = image2.histogram()
                 assert len(g) == len(s),"error"
 
                 data = []
@@ -47,11 +46,11 @@ class histgram(method):
                         else:
                                 data.append(1)
     
-                return sum(data)/len(g)
+                return 1-sum(data)/len(g)
 
 
 
-        def split_image(image,part_size):
+        def split_image(self,image,part_size):
                pw,ph = part_size
                w,h = image.size
 
@@ -66,7 +65,7 @@ class histgram(method):
 
                return sub_image_list
 
-        def classfiy_histogram_with_split(image1,image2,size = (256,256),part_size=(64,64)):
+        def classfiy_histogram_with_split(self,image1,image2,size,part_size):
             ''' 'image1' and 'image2' is a Image Object.
                   You can build it by 'Image.open(path)'.
                   'Size' is parameter what the image will resize to it.It's 256 * 256 when it default.  
@@ -75,10 +74,10 @@ class histgram(method):
             '''
             image1 = image1.resize(size).convert("RGB")
             sub_image1 = self.split_image(image1,part_size)
-
+            #print (len(sub_image1))
             image2 = image2.resize(size).convert("RGB")
             sub_image2 = self.split_image(image2,part_size)
-
+            #print (len(sub_image2))
             sub_data = 0;
             for im1,im2 in zip(sub_image1,sub_image2):
                  sub_data += self.calculate(im1, im2)
@@ -86,8 +85,10 @@ class histgram(method):
             x = size[0]/part_size[0]
             y = size[1]/part_size[1]
 
-            pre = round((sub_data/(x*y) ),3 )
-            return  pre    
+            #pre = round((sub_data/(x*y) ),3 )
+            #return  pre
+            #print (sub_data/(x*y))
+            return sub_data/(x*y)
         def classfiy_histogram(self,image1,image2,size):
                 ''' 'image1' and 'image2' is a Image Object.
                   You can build it by 'Image.open(path)'.
@@ -109,8 +110,8 @@ class histgram(method):
                                 data.append(1 - abs(g[index] - s[index])/max(g[index],s[index]) )
                          else:
                                 data.append(1)
-    
-                return sum(data)/len(g)
+                #print (1-sum(data)/len(g))
+                return 1-sum(data)/len(g)
 #the function getCode,compCode,classfiy_dHash are found on github MashiMaroLjc/Learn-to-identify-similar-images
 #All the copyright belongs to MashiMaroLjc 
 #Original Copyright information is below.
@@ -121,8 +122,8 @@ class histgram(method):
 #author MashiMaroLjc
 #version 2016-2-16
 class dHash(method):
-        def __init__(self,im1,im2,resize=(9,8)):
-                super().__init__(im1,im2)
+        def __init__(self,resize=(9,8)):
+                super().__init__()
                 self.size=resize
         def value(self):
                 return classfiy_dHash(self.im1,self.im2,self.size)
@@ -171,8 +172,8 @@ class dHash(method):
     
                 return self.compCode(code1, code2)
 class pixelCompare(method):
-        def __init__(self,im1,im2,resize=-1):
-                super().__init__(im1,im2)
+        def __init__(self,resize=-1):
+                super().__init__()
                 if resize==-1:
                         resize=im2.size
                 self.size=resize
