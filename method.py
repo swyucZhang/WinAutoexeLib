@@ -12,13 +12,14 @@ from PIL import ImageOps
 #author MashiMaroLjc
 #version 2016-2-16
 class method ():
-        def __init__(self):
-                pass
+        def __init__(self,im1,im2):
+                self.im1=im1
+                self.im2=im2
         def value(self):
                 pass
 class histgram(method):
-        def __init__(self,resize=(256,256),split=False,part_size=(64,64)):
-                super().__init__()
+        def __init__(self,resize=(256,256),split=False,part_size=(64,64),im1=None,im2=None):
+                super().__init__(im1,im2)
                 self.size=resize
                 self.split=split
                 self.part_size=part_size
@@ -122,8 +123,8 @@ class histgram(method):
 #author MashiMaroLjc
 #version 2016-2-16
 class dHash(method):
-        def __init__(self,resize=(9,8)):
-                super().__init__()
+        def __init__(self,resize=(9,8),im1=None,im2=None):
+                super().__init__(im1,im2)
                 self.size=resize
         def value(self):
                 return self.classfiy_dHash(self.im1,self.im2,self.size)
@@ -173,22 +174,23 @@ class dHash(method):
     
                 return self.compCode(code1, code2)/len(code1)
 class pixelCompare(method):
-        def __init__(self,resize=-1):
-                super().__init__()
-                if resize==-1:
-                        resize=im2.size
+        def __init__(self,resize=-1,im1=None,im2=None):
+                super().__init__(im1,im2)
                 self.size=resize
-                im1=im1.resize(resize)
-                im2=im2.resize(resize)
         def value(self):
-                return compare_every_dot(im1,im2)
-        def compare_every_dot(im1,im2):
+                if self.size==-1:
+                        self.size=(256,256)
+                self.im1=self.im1.resize(self.size).convert("RGB")
+                self.im2=self.im2.resize(self.size).convert("RGB")
+                return self.compare_every_dot(self.im1,self.im2)
+        def compare_every_dot(self,im1,im2):
                 width,height=self.size
                 sumpixel=0
                 for h in range(0, height):  
                         for w in range(0, width):  
                                 pixel1 = im1.getpixel((w, h))
                                 pixel2 = im2.getpixel((w, h))
+                                #print (pixel1)
                                 for i in range(0,3):
-                                        sumpixel=sumpixel+(pixel1[i]-pixel2[i])**2
+                                        sumpixel=sumpixel+abs(pixel1[i]-pixel2[i])/256.0/self.size[0]/self.size[1]/3
                 return sumpixel

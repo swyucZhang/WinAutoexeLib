@@ -17,3 +17,5 @@ test3=condition(success,failure,imgCmp(((283,61),(1082,660)),"C:\\Users\\bxc\\De
 test3.execute()
 test4=condition(success,failure,imgCmp(((283,61),(1082,660)),"C:\\Users\\bxc\\Desktop\\website\\PDF\\picture\\2.jpeg",0.3,method=dHash()))
 test4.execute()
+test5=condition(success,failure,imgCmp(((283,61),(1082,660)),"C:\\Users\\bxc\\Desktop\\website\\PDF\\picture\\2.jpeg",0.3,method=pixelCompare()))
+test5.execute()
