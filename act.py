@@ -1,3 +1,7 @@
+#Copyright (c) 2017, ZhangHaosheng.
+#E-mail: zhs19951021@163.com
+#License: GPL
+
 import win32api
 import win32con
 import time
@@ -137,7 +141,7 @@ VK_CODE = {
     'play_key':0xFA,
     'zoom_key':0xFB,
     'clear_key':0xFE,
-    '+':0xBB,
+    '=':0xBB,
     ',':0xBC,
     '-':0xBD,
     '.':0xBE,
@@ -169,9 +173,129 @@ class keyInput(act):
     def __init__(self,value):
         self.value = value
     def press(self):
+        #the key '\' cannot be input now.
+        #if you want to print a string including ', you should use the "" to present the whole string
+        #if you want to print a string including ", you should use the '' to present the whole string
         for i in self.value:
-            win32api.keybd_event(VK_CODE[i],0,0,0)
-            win32api.keybd_event(VK_CODE[i],0,win32con.KEYEVENTF_KEYUP,0)
+            if i.islower():
+                win32api.keybd_event(VK_CODE[i],0,0,0)
+                win32api.keybd_event(VK_CODE[i],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i.isupper():
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE[i.lower()],0,0,0)
+                win32api.keybd_event(VK_CODE[i.lower()],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '"':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE["'"],0,0,0)
+                win32api.keybd_event(VK_CODE["'"],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == ':':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE[';'],0,0,0)
+                win32api.keybd_event(VK_CODE[';'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '{':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['['],0,0,0)
+                win32api.keybd_event(VK_CODE['['],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '}':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE[']'],0,0,0)
+                win32api.keybd_event(VK_CODE[']'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '|':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['\\'],0,0,0)
+                win32api.keybd_event(VK_CODE['\\'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '~':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['`'],0,0,0)
+                win32api.keybd_event(VK_CODE['`'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '?':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['/'],0,0,0)
+                win32api.keybd_event(VK_CODE['/'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '<':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE[','],0,0,0)
+                win32api.keybd_event(VK_CODE[','],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '>':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['.'],0,0,0)
+                win32api.keybd_event(VK_CODE['.'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '!':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['1'],0,0,0)
+                win32api.keybd_event(VK_CODE['1'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '@':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['2'],0,0,0)
+                win32api.keybd_event(VK_CODE['2'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '#':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['3'],0,0,0)
+                win32api.keybd_event(VK_CODE['3'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '$':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['4'],0,0,0)
+                win32api.keybd_event(VK_CODE['4'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '%':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['5'],0,0,0)
+                win32api.keybd_event(VK_CODE['5'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '^':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['6'],0,0,0)
+                win32api.keybd_event(VK_CODE['6'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '&':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['7'],0,0,0)
+                win32api.keybd_event(VK_CODE['7'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '*':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['8'],0,0,0)
+                win32api.keybd_event(VK_CODE['8'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '(':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['9'],0,0,0)
+                win32api.keybd_event(VK_CODE['9'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == ')':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['0'],0,0,0)
+                win32api.keybd_event(VK_CODE['0'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '_':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['-'],0,0,0)
+                win32api.keybd_event(VK_CODE['-'],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == '+':
+                win32api.keybd_event(VK_CODE['shift'],0,0,0)
+                win32api.keybd_event(VK_CODE['='],0,0,0)
+                win32api.keybd_event(VK_CODE['='],0,win32con.KEYEVENTF_KEYUP,0)
+                win32api.keybd_event(VK_CODE['shift'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i == " ":
+                win32api.keybd_event(VK_CODE['spacebar'],0,0,0)
+                win32api.keybd_event(VK_CODE['spacebar'],0,win32con.KEYEVENTF_KEYUP,0)
+            else:
+                win32api.keybd_event(VK_CODE[i],0,0,0)
+                win32api.keybd_event(VK_CODE[i],0,win32con.KEYEVENTF_KEYUP,0)
             
 class mouse(act):
     def __init__(self):
@@ -207,4 +331,13 @@ class mouse(act):
         win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP,0,0,0,0)
         win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN,0,0,0,0)
         win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP,0,0,0,0)
-
+    def click_m(self,x = None,y = None):
+        if not x is None and not y is None:
+            win32api.SetCursorPos((x,y))
+            time.sleep(0.02)
+        win32api.mouse_event(win32con.MOUSEEVENTF_MIDDLEDOWN,0,0,0,0)
+        win32api.mouse_event(win32con.MOUSEEVENTF_MIDDLEUP,0,0,0,0)
+    def wheelUp(self,num):
+        win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL,0,0,120*num,0)
+    def wheelDown(self,num):
+        win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL,0,0,-120*num,0)
