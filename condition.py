@@ -1,3 +1,6 @@
+#Copyright (c) 2017, BaoXingce.
+#E-mail: 1652256031@qq.com
+#License: GPL
 from PIL import ImageGrab
 from PIL import Image
 from method import *
@@ -14,10 +17,15 @@ class condition():
 class expr():
     def __init__(self):
         pass
-    def boolean(self):
+    def value(self):
         pass
     def grab(self):
         pass
+    def boolean(self):
+        if self.value()<= self.strict:
+            return True
+        else:
+            return False
 class dotCmp(expr):
     def __init__(self,dotPos,color,strict):
         super().__init__()
@@ -30,13 +38,10 @@ class dotCmp(expr):
         #print (im.size)
         red, green, blue=im.getpixel((0, 0))
         return red, green, blue
-    def boolean(self):
+    def value(self):
         red, green, blue=self.grab()
         red, green, blue=self.color[0]-red,self.color[1]-green,self.color[2]-blue
-        if (red**2+green**2+blue**2)/256**2<=self.strict:
-            return True
-        else:
-            return False
+        return (red**2+green**2+blue**2)/256**2
 class imgCmp(expr):
     def __init__(self,imgPos,imgFile,strict,method=None):
         super().__init__()
@@ -49,18 +54,15 @@ class imgCmp(expr):
         #print (im.size)
         im2 = Image.open(self.imgFile)
         return im1,im2
-    def boolean(self):
+    
+    def value(self):
         im1,im2=self.grab()
                 
         if self.method is None:
             self.method=histgram()
         self.method.im1=im1
         self.method.im2=im2
-        print (self.method.value())
-        if self.method.value()<= self.strict:
-            return True
-        else:
-            return False
+        return self.method.value()
             
         
         

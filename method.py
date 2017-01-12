@@ -5,7 +5,9 @@ from PIL import ImageOps
 #the function classfiy_histogram,calculate,split_image,classfiy_histogram_with_split are found on github MashiMaroLjc/Learn-to-identify-similar-images
 #All the copyright belongs to MashiMaroLjc 
 #Original Copyright information is below.
-
+#Copyright (c) 2017, BaoXingce.
+#E-mail: 1652256031@qq.com
+#License: GPL
 #This module can classify the image by histogram.
 #This method is easy for someone who is a beginner in Image classification.
 #

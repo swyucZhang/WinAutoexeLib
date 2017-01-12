@@ -1,3 +1,6 @@
+#Copyright (c) 2017, BaoXingce.
+#E-mail: 1652256031@qq.com
+#License: GPL
 import sys
 import time
 time.sleep(3)
