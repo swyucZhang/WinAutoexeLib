@@ -126,7 +126,7 @@ class dHash(method):
                 super().__init__()
                 self.size=resize
         def value(self):
-                return classfiy_dHash(self.im1,self.im2,self.size)
+                return self.classfiy_dHash(self.im1,self.im2,self.size)
         def getCode(self,img,size):
 
                 result = []
@@ -140,12 +140,13 @@ class dHash(method):
                                 now_value = img.getpixel((x,y))
                                 next_value = img.getpixel((x+1,y))
 
-                if next_value < now_value:
-                        result.append(1)
-                else:
-                        result.append(0)
+                                if next_value < now_value:
+                                    result.append(1)
+                                else:
+                                    result.append(0)
 
-
+                #print ("result")
+                #print(result)
                 return result
         def compCode(self,code1,code2):
                 num = 0
@@ -170,7 +171,7 @@ class dHash(method):
 
                 assert len(code1) == len(code2),"error"
     
-                return self.compCode(code1, code2)
+                return self.compCode(code1, code2)/len(code1)
 class pixelCompare(method):
         def __init__(self,resize=-1):
                 super().__init__()
