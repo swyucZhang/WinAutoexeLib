@@ -62,6 +62,7 @@ class imgCmp(expr):
             self.method=histgram()
         self.method.im1=im1
         self.method.im2=im2
+        #print (self.method.value())
         return self.method.value()
             
         

@@ -181,18 +181,19 @@ class pixelCompare(method):
                 self.size=resize
         def value(self):
                 if self.size==-1:
-                        self.size=(256,256)
-                self.im1=self.im1.resize(self.size).convert("RGB")
-                self.im2=self.im2.resize(self.size).convert("RGB")
+                        self.size=(64,64)
+                self.im1=self.im1.resize(self.size).convert("RGB").load()
+                self.im2=self.im2.resize(self.size).convert("RGB").load()
                 return self.compare_every_dot(self.im1,self.im2)
         def compare_every_dot(self,im1,im2):
                 width,height=self.size
                 sumpixel=0
                 for h in range(0, height):  
                         for w in range(0, width):  
-                                pixel1 = im1.getpixel((w, h))
-                                pixel2 = im2.getpixel((w, h))
+                                pixel1 = im1[w,h]
+                                pixel2 = im2[w,h]
                                 #print (pixel1)
                                 for i in range(0,3):
-                                        sumpixel=sumpixel+abs(pixel1[i]-pixel2[i])/256.0/self.size[0]/self.size[1]/3
+                                        sumpixel=sumpixel+abs(pixel1[i]-pixel2[i])
+                sumpixel=sumpixel/256.0/self.size[0]/self.size[1]/3
                 return sumpixel
