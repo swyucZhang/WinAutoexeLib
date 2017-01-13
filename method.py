@@ -176,24 +176,34 @@ class dHash(method):
     
                 return self.compCode(code1, code2)/len(code1)
 class pixelCompare(method):
-        def __init__(self,resize=-1,im1=None,im2=None):
+        def __init__(self,resize=-1,im1=None,im2=None,mode="RGB"):
                 super().__init__(im1,im2)
                 self.size=resize
+                self.mode=mode
         def value(self):
                 if self.size==-1:
                         self.size=(64,64)
-                self.im1=self.im1.resize(self.size).convert("RGB").load()
-                self.im2=self.im2.resize(self.size).convert("RGB").load()
+                self.im1=self.im1.resize(self.size).convert(self.mode).load()
+                self.im2=self.im2.resize(self.size).convert(self.mode).load()
                 return self.compare_every_dot(self.im1,self.im2)
         def compare_every_dot(self,im1,im2):
                 width,height=self.size
                 sumpixel=0
-                for h in range(0, height):  
-                        for w in range(0, width):  
-                                pixel1 = im1[w,h]
-                                pixel2 = im2[w,h]
-                                #print (pixel1)
-                                for i in range(0,3):
-                                        sumpixel=sumpixel+abs(pixel1[i]-pixel2[i])
-                sumpixel=sumpixel/256.0/self.size[0]/self.size[1]/3
+                if self.mode=="RGB":
+                    for h in range(0, height):  
+                            for w in range(0, width):  
+                                    pixel1 = im1[w,h]
+                                    pixel2 = im2[w,h]
+                                    #print (pixel1)
+                                    for i in range(0,3):
+                                            sumpixel=sumpixel+abs(pixel1[i]-pixel2[i])
+                    sumpixel=sumpixel/255.0/self.size[0]/self.size[1]/3
+                elif self.mode=="1":
+                    for h in range(0, height):  
+                            for w in range(0, width):  
+                                    pixel1 = im1[w,h]
+                                    pixel2 = im2[w,h]
+                                    #print (pixel1)
+                                    sumpixel=sumpixel+abs(pixel1-pixel2)
+                    sumpixel=sumpixel/255.0/self.size[0]/self.size[1]
                 return sumpixel
