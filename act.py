@@ -293,6 +293,12 @@ class keyInput(act):
             elif i == " ":
                 win32api.keybd_event(VK_CODE['spacebar'],0,0,0)
                 win32api.keybd_event(VK_CODE['spacebar'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i =='\n':
+                win32api.keybd_event(VK_CODE['enter'],0,0,0)
+                win32api.keybd_event(VK_CODE['enter'],0,win32con.KEYEVENTF_KEYUP,0)
+            elif i =='\t':
+                win32api.keybd_event(VK_CODE['tab'],0,0,0)
+                win32api.keybd_event(VK_CODE['tab'],0,win32con.KEYEVENTF_KEYUP,0)
             else:
                 win32api.keybd_event(VK_CODE[i],0,0,0)
                 win32api.keybd_event(VK_CODE[i],0,win32con.KEYEVENTF_KEYUP,0)
@@ -341,3 +347,7 @@ class mouse(act):
         win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL,0,0,120*num,0)
     def wheelDown(self,num):
         win32api.mouse_event(win32con.MOUSEEVENTF_WHEEL,0,0,-120*num,0)
+
+def main():
+    time.sleep(1)
+    keyInput('\n\t').press()
