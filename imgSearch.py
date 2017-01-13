@@ -4,6 +4,7 @@
 from PIL import ImageGrab
 from PIL import Image
 from method import *
+import math
 class search():
     pass
 class imgSearch(search):
@@ -12,7 +13,7 @@ class imgSearch(search):
         self.im2=Image.open(im2)
         self.Threshold1=0.15
         #self.Threshold2=0.3
-        self.cmpSize1=(10,10)
+        self.cmpSize1=(20,20)
         #self.cmpSize2=(64,64)
     def search(self):
         imglist=self.split_image(self.im1,self.im2.size)
@@ -50,10 +51,10 @@ class imgSearch(search):
 
                sub_image_list = []
 
-               for i in range(0,w,round(pw/50)):
-                       for j in range(0,h,round(ph/50)):
+               for i in range(0,w,math.ceil(pw/50)):
+                       for j in range(0,h,math.ceil(ph/50)):
                                if i+pw<w and j+ph<h:
-                                   sub_image = image.crop((i,j,i+pw,j+ph)).copy()
+                                   sub_image = image.crop((i,j,i+pw,j+ph))#.copy()
                                    sub_image_list.append((sub_image,i,j))
                                elif j+ph>h:
                                    continue
